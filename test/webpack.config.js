@@ -4,7 +4,7 @@ const { VueLoaderPlugin } = require("vue-loader");
 
 module.exports = {
   output: {
-    publicPath: "http://localhost:8080/",
+    publicPath: "http://localhost:8082/",
   },
 
   resolve: {
@@ -12,7 +12,7 @@ module.exports = {
   },
 
   devServer: {
-    port: 8080,
+    port: 8082,
     historyApiFallback: true,
   },
 
@@ -46,13 +46,12 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new ModuleFederationPlugin({
-      name: "host",
+      name: "test",
       filename: "remoteEntry.js",
-      remotes: {
-        comp: "comp@http://localhost:8081/remoteEntry.js",
-        test: "test@http://localhost:8082/remoteEntry.js",
+      remotes: {},
+      exposes: {
+        "./Alert": "./src/Alert.vue",
       },
-      exposes: {},
       shared: require("./package.json").dependencies,
     }),
     new HtmlWebPackPlugin({

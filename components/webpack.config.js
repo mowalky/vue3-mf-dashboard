@@ -46,10 +46,12 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new ModuleFederationPlugin({
-      name: "components",
+      name: "comp",
       filename: "remoteEntry.js",
       remotes: {},
-      exposes: {},
+      exposes: {
+        "./Button": "./src/Button.vue",
+      },
       shared: require("./package.json").dependencies,
     }),
     new HtmlWebPackPlugin({
